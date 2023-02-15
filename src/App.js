@@ -1,6 +1,11 @@
 import './App.css';
 
 import { useState, useEffect } from 'react';
+import { Routes, Route } from "react-router-dom";
+
+//pages and components imports
+import Profile from './pages/profile/profile.page';
+import HRPanel from './pages/hrPanel/hrPanel';
 
 //firebase imports
 import { db } from './firebase.config'
@@ -28,7 +33,12 @@ function App() {
   return (
     <div className="App">
       <h1>Holiday Booking in Your Workspace</h1>
-      {employees && employees.map((employee) => <h2 key={employee.id}>{employee.name}</h2>)}
+
+      <Routes>
+        <Route path='/' element={<HRPanel />} />
+        <Route path='/profile' element={<Profile />} />
+      </Routes>
+
     </div>
   );
 }

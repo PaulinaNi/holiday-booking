@@ -1,0 +1,131 @@
+import { useState } from "react"
+import { collection, addDoc } from "firebase/firestore";
+import { db } from '../../firebase.config'
+
+//imports of components
+import MessageWindow from "../messageWindow/messageWindow.component";
+
+export default function CreateNewEmployee() {
+ const [createState, setCreateState] = useState('creating')
+
+ //add unchanged data for each new employee
+ const newEmployeeLayout = {
+  firstname: '',
+  lastname: '',
+  department: '',
+  entitlement: '',
+  taken: 0,
+  bookedDays: []
+ }
+ //state to keep new employee data from form
+ const [newEmployee, setNewEmployee] = useState(newEmployeeLayout)
+
+ //save employee to database
+ const handleSubmit = (event) => {
+  event.preventDefault();
+
+  const createNewEmployee = async () => {
+   await addDoc(collection(db, "employees"), {
+    ...newEmployee
+   })
+   //change value of CreateState to load massage that employee have been saved to database
+   setCreateState('created')
+  }
+  //calling async function
+  createNewEmployee()
+ }
+
+ //Handling text Inputs 
+ const handleChange = (event) => {
+  setNewEmployee(prevState => {
+   const name = event.target.name
+   //make sure that first letter is Upper Case
+   const value = `${event.target.value.charAt(0).toUpperCase()}${event.target.value.slice(1)}`
+   return {
+    ...prevState,
+    [name]: value
+   }
+  })
+ }
+
+ //Handling entitlement Input
+ const handleEntitlementChange = event => {
+  setNewEmployee(prevState => {
+   const name = event.target.name
+   //convert from string to number 
+   const value = event.target.valueAsNumber
+   return {
+    ...prevState,
+    [name]: value,
+    remaining: value
+   }
+  })
+ }
+
+ //preper for next employee adding
+ const handleButton = () => {
+  setCreateState('creating')
+  setNewEmployee(newEmployeeLayout)
+ }
+
+ return (
+  <div>
+   <h2>Create New Employee</h2>
+   {/* message show when new employee is created */}
+   {createState === 'created' && <MessageWindow message='Employee data saved!' buttonFunction={handleButton} />}
+
+   {/* form */}
+   <form onSubmit={handleSubmit}>
+    <div>
+     <label htmlFor='firstname'>First Name (names)</label>
+     <input
+      name='firstname'
+      id='firstname'
+      type='text'
+      value={newEmployee.firstname}
+      placeholder='input first name'
+      onChange={handleChange}
+      required
+     />
+    </div>
+    <div>
+     <label htmlFor='lastname'>Last Name</label>
+     <input
+      name='lastname'
+      id='lastname'
+      type='text'
+      value={newEmployee.lastname}
+      placeholder='input last name'
+      onChange={handleChange}
+      required
+     />
+    </div>
+    <div>
+     <label htmlFor='department'>Department</label>
+     <input
+      name='department'
+      id='department'
+      type='text'
+      value={newEmployee.department}
+      placeholder='input department'
+      onChange={handleChange}
+      required
+     />
+    </div>
+    <div>
+     <label htmlFor='entitlement'>Holiday Entitlement</label>
+     <input
+      name='entitlement'
+      id='entitlement'
+      type='number'
+      value={newEmployee.entitlement}
+      placeholder='input how many days'
+      onChange={handleEntitlementChange}
+      required
+     />
+    </div>
+    <button>Add new employee</button>
+   </form>
+  </div>
+ )
+}
