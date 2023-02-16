@@ -4,6 +4,7 @@ import { db } from '../../firebase.config'
 
 //imports of components
 import MessageWindow from "../messageWindow/messageWindow.component";
+import Button from "../button/button.component";
 
 export default function CreateNewEmployee() {
  const [createState, setCreateState] = useState('creating')
@@ -15,13 +16,15 @@ export default function CreateNewEmployee() {
   department: '',
   entitlement: '',
   taken: 0,
-  bookedDays: []
+  bookedDays: [],
+  isManager: false,
+  isHR: false,
  }
  //state to keep new employee data from form
  const [newEmployee, setNewEmployee] = useState(newEmployeeLayout)
 
  //save employee to database
- const handleSubmit = (event) => {
+ const handleSubmit = event => {
   event.preventDefault();
 
   const createNewEmployee = async () => {
@@ -35,8 +38,8 @@ export default function CreateNewEmployee() {
   createNewEmployee()
  }
 
- //Handling text Inputs 
- const handleChange = (event) => {
+ //Handling text inputs 
+ const handleChange = event => {
   setNewEmployee(prevState => {
    const name = event.target.name
    //make sure that first letter is Upper Case
@@ -48,7 +51,7 @@ export default function CreateNewEmployee() {
   })
  }
 
- //Handling entitlement Input
+ //Handling entitlement input
  const handleEntitlementChange = event => {
   setNewEmployee(prevState => {
    const name = event.target.name
@@ -59,6 +62,16 @@ export default function CreateNewEmployee() {
     [name]: value,
     remaining: value
    }
+  })
+ }
+
+ //Handling checkbox input
+ const handleCheckboxChange = event => {
+  setNewEmployee(prevState => {
+   return ({
+    ...prevState,
+    [event.target.name]: event.target.checked
+   })
   })
  }
 
@@ -118,13 +131,34 @@ export default function CreateNewEmployee() {
       name='entitlement'
       id='entitlement'
       type='number'
+      min='0'
       value={newEmployee.entitlement}
       placeholder='input how many days'
       onChange={handleEntitlementChange}
       required
      />
     </div>
-    <button>Add new employee</button>
+    <div>
+     <label htmlFor="isManager">Do you want to add Manager Panel for that profile ?</label>
+     <input
+      type="checkbox"
+      name="isManager"
+      id="isManager"
+      checked={newEmployee.isManager}
+      onChange={handleCheckboxChange}
+     />
+    </div>
+    <div>
+     <label htmlFor="isHR">Do you want to add HR Panel for that profile ?</label>
+     <input
+      type="checkbox"
+      name="isHR"
+      id="isHR"
+      checked={newEmployee.isHR}
+      onChange={handleCheckboxChange}
+     />
+    </div>
+    <Button text='Add new employee' />
    </form>
   </div>
  )

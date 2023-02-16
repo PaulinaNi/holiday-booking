@@ -1,8 +1,10 @@
+import Button from "../button/button.component"
+
 export default function MessageWindow(props) {
  return (
   <div>
    <p>{props.message}</p>
-   <button onClick={props.buttonFunction}>Continue</button>
+   <Button text='Continue' function={props.buttonFunction} />
   </div>
  )
 }

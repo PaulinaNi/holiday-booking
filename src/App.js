@@ -33,7 +33,6 @@ function App() {
   return (
     <div className="App">
       <h1>Holiday Booking in Your Workspace</h1>
-
       <Routes>
         <Route path='/' element={<HRPanel />} />
         <Route path='/profile' element={<Profile />} />
