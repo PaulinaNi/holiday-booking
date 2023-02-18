@@ -13,6 +13,7 @@ export default function CreateNewEmployee() {
  const newEmployeeLayout = {
   firstname: '',
   lastname: '',
+  password: '',
   department: '',
   entitlement: '',
   taken: 0,
@@ -121,6 +122,17 @@ export default function CreateNewEmployee() {
       type='text'
       value={newEmployee.department}
       placeholder='input department'
+      onChange={handleChange}
+      required
+     />
+    </div>
+    <div>
+     <label htmlFor="password">Password</label>
+     <input
+      type="password"
+      name="password"
+      id="password"
+      value={newEmployee.password}
       onChange={handleChange}
       required
      />

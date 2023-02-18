@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react"
 
 //components imports
-import Button from "../../components/button/button.component"
+import LogIn from "../../components/logIn/logIn.component"
+import HRPanel from "../hrPanel/hrPanel"
 
 //firebase imports
 import { collection, getDocs } from "firebase/firestore"
@@ -23,31 +24,25 @@ export default function Homepage() {
   loadEmployees()
  }, [])
 
- //LogInData State for form
- const userLogInDataLayout = {
-  firstname: '',
-  lastname: '',
- }
- const [logInData, setLogInData] = useState(userLogInDataLayout)
-
  //Store current user
  const [currentUser, setCurrentUser] = useState()
 
  //Form handling
- const handleLogInSubmit = async (event) => {
-  event.preventDefault()
+ const handleLogInSubmit = async (logInData) => {
   const user = employees.filter(employee => {
-   return employee.firstname === logInData.firstname && employee.lastname === logInData.lastname
+   return employee.firstname === logInData.firstname
+    && employee.lastname === logInData.lastname
+    && employee.password === logInData.password
   })
-  setCurrentUser(user)
-  console.log(currentUser)
- }
- const handleLogInChanges = event => {
-  const name = event.target.name
-  const value = event.target.value
-  setLogInData(prevState => { return { ...prevState, [name]: value } })
+  if (user.length === 1) {
+   setCurrentUser(user)
+  } else if (user.length === 0) {
+   //add component which will tell that login data is wrong
+   console.log('wrong password')
+  }
  }
 
+ console.log(currentUser)
  return (
   <main>
    <h1>Holiday Booking App in Your Workspace</h1>
@@ -57,30 +52,13 @@ export default function Homepage() {
     <li>Manager account where you can accept holiday reqests and check when your team have a holiday</li>
     <li>Worker account where you can check when worker have booked holidays, send reqest and check if they have been accepted</li>
    </ul>
-   <form onSubmit={handleLogInSubmit}>
-    <div>
-     <label htmlFor="firstname">First Name</label>
-     <input
-      type="text"
-      name="firstname"
-      id="firstname"
-      value={logInData.firstname}
-      onChange={handleLogInChanges}
-     />
-    </div>
-    <div>
-     <label htmlFor="lastname">Last Name</label>
-     <input
-      type="text"
-      name="lastname"
-      id="lastname"
-      value={logInData.lastname}
-      onChange={handleLogInChanges}
-     />
-    </div>
-    <Button text='Log In' />
-   </form>
+   {!currentUser && <LogIn
+    handleLogInSubmit={handleLogInSubmit}
+    employees={employees}
+   />}
+
    {currentUser && <h2>Welcome {currentUser[0].firstname}</h2>}
+   {currentUser && currentUser[0].isHR && <HRPanel />}
   </main>
  )
 }
