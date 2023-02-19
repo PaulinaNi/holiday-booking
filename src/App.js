@@ -6,7 +6,6 @@ import { Routes, Route } from "react-router-dom"
 
 //pages and components imports
 import Homepage from './pages/homepage/homepage.page'
-import Profile from './pages/profile/profile.page'
 import HRPanel from './pages/hrPanel/hrPanel'
 
 //firebase imports
@@ -37,7 +36,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Homepage />} />
         <Route path='/hr' element={<HRPanel />} />
-        <Route path='/profile' element={<Profile />} />
+        <Route path='/manager' element={<h2>Manager</h2>} />
       </Routes>
 
     </div>

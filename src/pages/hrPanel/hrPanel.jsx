@@ -1,6 +1,7 @@
 //import react
 import { useState, useEffect } from "react"
 //import components
+import HRPanelNav from "../../components/hrPanelNav/hrPanelNav.component"
 import CreateNewEmployee from "../../components/createNewEmployee/createNewEmployee.component"
 import ListOfEmployees from "../../components/listOfEmployees/listOfEmployees.component"
 //firebase imports
@@ -37,18 +38,14 @@ export default function HRPanel() {
  //state for controling which component should be loaded
  const [panelFunction, setPanelFunction] = useState('')
 
+ const handleHRPanelNavigation = (option, num) => {
+  setPanelFunction(option)
+  handleReRender(num)
+ }
 
  return (
   <section>
-   <h2>HR Panel</h2>
-   <button onClick={() => {
-    setPanelFunction('create')
-    handleReRender(1)
-   }}>Add New Employee</button>
-   <button onClick={() => {
-    setPanelFunction('list')
-    handleReRender(2)
-   }}>Show List of Employees</button>
+   <HRPanelNav panelOption={handleHRPanelNavigation} />
    {panelFunction === 'create' && <CreateNewEmployee />}
    {panelFunction === 'list' && <ListOfEmployees employees={employees} handleReRender={handleReRender} />}
   </section>
