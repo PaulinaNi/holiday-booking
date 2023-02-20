@@ -1,0 +1,16 @@
+:root {
+ --colour-main: #009879;
+ --colour-main-dark: #005E4C;
+ --colour-accent: #FFC35C;
+ --colour-black: #000000;
+ --colour-white: #ffffff;
+}
+
+* {
+ box-sizing: border-box;
+}
+
+body {
+ margin: 0;
+ font-family: 'Sofia Sans', sans-serif;
+}

@@ -32,7 +32,7 @@ function App() {
   // }, [])
 
   return (
-    <div className="App">
+    <div className="app">
       <Routes>
         <Route path='/' element={<Homepage />} />
         <Route path='/hr' element={<HRPanel />} />

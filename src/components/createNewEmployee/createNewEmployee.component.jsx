@@ -1,3 +1,5 @@
+import "./createNewEmployee.style.css"
+
 import { useState } from "react"
 import { collection, addDoc } from "firebase/firestore";
 import { db } from '../../firebase.config'
@@ -83,15 +85,15 @@ export default function CreateNewEmployee() {
  }
 
  return (
-  <div>
-   <h2>Create New Employee</h2>
+  <div className="createNewEmployeeContainer">
+   <h1>Create New Employee</h1>
    {/* message show when new employee is created */}
    {createState === 'created' && <MessageWindow message='Employee data saved!' buttonFunction={handleButton} />}
 
    {/* form */}
    <form onSubmit={handleSubmit}>
     <div>
-     <label htmlFor='firstname'>First Name (names)</label>
+     <label htmlFor='firstname'>First Name</label>
      <input
       name='firstname'
       id='firstname'
@@ -133,6 +135,7 @@ export default function CreateNewEmployee() {
       name="password"
       id="password"
       value={newEmployee.password}
+      placeholder='password'
       onChange={handleChange}
       required
      />

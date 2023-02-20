@@ -1,0 +1,20 @@
+.createNewEmployeeContainer {
+ text-align: center;
+}
+
+.createNewEmployeeContainer div {
+ padding-bottom: 1rem;
+}
+
+.createNewEmployeeContainer label {
+ display: block;
+ color: var(--colour-main-dark);
+ font-weight: 800;
+}
+
+@media (min-width:600px) {
+ .createNewEmployeeContainer label {
+  display: inline-block;
+  padding-right: 1rem;
+ }
+}
