@@ -36,7 +36,7 @@ export default function HRPanel() {
 
 
  //state for controling which component should be loaded
- const [panelFunction, setPanelFunction] = useState('')
+ const [panelFunction, setPanelFunction] = useState('list')
 
  const handleHRPanelNavigation = (option, num) => {
   setPanelFunction(option)

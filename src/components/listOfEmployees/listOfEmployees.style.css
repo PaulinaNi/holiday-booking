@@ -1,0 +1,17 @@
+.listOfEmployeesComponent {
+ text-align: center;
+}
+
+.listOfEmployeesComponent li {
+ padding: 0.2rem 0;
+}
+
+.listOfEmployeesComponent-functions {
+ display: inline-block;
+ margin-left: 1rem;
+ padding: 0.5rem 1rem;
+ cursor: pointer;
+ border-radius: 0.5rem;
+ background-color: var(--colour-main-dark);
+ color: var(--colour-white);
+}

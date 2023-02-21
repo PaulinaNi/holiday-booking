@@ -1,8 +1,9 @@
+import "./listOfEmployees.style.css"
 //firebase imports
 import { db } from "../../firebase.config";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 //component imports
-import Button from "../button/button.component"
+
 
 export default function ListOfEmployees(props) {
 
@@ -21,14 +22,15 @@ export default function ListOfEmployees(props) {
   }
 
   return (
-    <section>
+    <section className="listOfEmployeesComponent">
+      <h1>Employees</h1>
       <ol>
         {props.employees && props.employees.map(employee => {
           return (
             <li key={employee.id}>
-              {employee.firstname} {employee.lastname}
-              <Button text='Update' function={() => handleUpdate(employee.id)} />
-              <Button text='Delete' function={() => handleDeleteButton(employee.id)} />
+              <span className="listOfEmployeesComponent-name">{employee.firstname} {employee.lastname}</span>
+              <span className="listOfEmployeesComponent-functions" onClick={() => handleUpdate(employee.id)}>Update</span>
+              <span className="listOfEmployeesComponent-functions" onClick={() => handleDeleteButton(employee.id)}>Delete</span>
             </li>)
         })}
       </ol>
