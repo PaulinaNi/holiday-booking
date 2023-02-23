@@ -1,13 +1,13 @@
 import "./listOfEmployees.style.css"
+import { useEffect, useState } from "react";
 //firebase imports
 import { db } from "../../firebase.config";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 //component imports
-
+import Search from "../search/search.component";
 
 export default function ListOfEmployees(props) {
-
-
+  const employees = props
   const handleDeleteButton = async (id) => {
     // const employeeDoc = doc(db, "employees", id) deleteDoc(employeeDoc)
     await deleteDoc(doc(db, "employees", id))
@@ -21,11 +21,21 @@ export default function ListOfEmployees(props) {
     props.handleReRender(id)
   }
 
+  const handleSearchInput = (searchInput) => {
+    const filteredEmployeesArray = employees.filter(employee => {
+      const fullName = `${employee.firstname} ${employee.lastname}`
+      return fullName.toLowerCase().includes(searchInput.toLowerCase())
+    })
+  }
+
+
+
   return (
     <section className="listOfEmployeesComponent">
       <h1>Employees</h1>
+      <Search handleSearchInput={handleSearchInput} />
       <ol>
-        {props.employees && props.employees.map(employee => {
+        {employees && employees.map(employee => {
           return (
             <li key={employee.id}>
               <span className="listOfEmployeesComponent-name">{employee.firstname} {employee.lastname}</span>

@@ -15,3 +15,7 @@
  background-color: var(--colour-main-dark);
  color: var(--colour-white);
 }
+
+.listOfEmployeesComponent-functions:hover {
+ color: var(--colour-accent)
+}
