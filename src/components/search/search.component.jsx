@@ -1,11 +1,10 @@
 import "./search.style.css"
 
 export default function Search(props) {
- const { handleSearchInput } = props
+ const { handleSearchInput, placeholderText } = props
  return (
   <div className="searchContainer">
-   <input type="text" onChange={(e) => handleSearchInput(e.target.value)} />
-   <button>Search</button>
+   <input type="text" placeholder={placeholderText} onChange={(e) => handleSearchInput(e.target.value)} />
   </div>
  )
 }

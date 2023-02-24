@@ -2,13 +2,17 @@
  text-align: center;
 }
 
+.listOfEmployeesComponent ol {
+ padding: 0 2rem;
+}
+
 .listOfEmployeesComponent li {
- padding: 0.2rem 0;
+ padding: 0.3rem;
 }
 
 .listOfEmployeesComponent-functions {
- display: inline-block;
- margin-left: 1rem;
+ display: block;
+ margin-bottom: 1rem;
  padding: 0.5rem 1rem;
  cursor: pointer;
  border-radius: 0.5rem;
@@ -18,4 +22,12 @@
 
 .listOfEmployeesComponent-functions:hover {
  color: var(--colour-accent)
+}
+
+@media (min-width:600px) {
+ .listOfEmployeesComponent-functions {
+  display: inline-block;
+  margin-left: 1rem;
+  margin-bottom: 0;
+ }
 }
