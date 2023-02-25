@@ -1,0 +1,30 @@
+.logInContainer {
+ margin: 1rem 0;
+ width: 100%;
+}
+
+.logInImg {
+ width: 100%;
+}
+
+.logInForm {
+ padding: 1rem 0;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+}
+
+@media (min-width:600px) {
+ .logInContainer {
+  margin: 1rem 10%;
+  width: 80%;
+ }
+}
+
+@media (min-width:1024px) {
+ .logInContainer {
+  margin: 1rem 20%;
+  width: 60%;
+ }
+}

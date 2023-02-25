@@ -1,4 +1,10 @@
+import "./logIn.style.css"
 import { useState } from "react"
+
+//import images
+import top from "../../images/leavesTop.png"
+import bottom from "../../images/leavesBottom.png"
+//import components
 import Button from "../button/button.component"
 
 export default function LogIn(props) {
@@ -22,38 +28,42 @@ export default function LogIn(props) {
  }
 
  return (
-  <form onSubmit={handleLogInSubmitFromComponent}>
-   <div>
-    <label htmlFor="firstname">First Name</label>
-    <input
-     type="text"
-     name="firstname"
-     id="firstname"
-     value={logInData.firstname}
-     onChange={handleLogInChanges}
-    />
-   </div>
-   <div>
-    <label htmlFor="lastname">Last Name</label>
-    <input
-     type="text"
-     name="lastname"
-     id="lastname"
-     value={logInData.lastname}
-     onChange={handleLogInChanges}
-    />
-   </div>
-   <div>
-    <label htmlFor="password">Password</label>
-    <input
-     type="password"
-     name="password"
-     id="password"
-     value={logInData.password}
-     onChange={handleLogInChanges}
-    />
-   </div>
-   <Button text='Log In' />
-  </form>
+  <section className="logInContainer">
+   <img className="logInImg" src={top} alt="watercolor leaves border" />
+   <form className="logInForm" onSubmit={handleLogInSubmitFromComponent}>
+    <div>
+     <label htmlFor="firstname">First Name</label>
+     <input
+      type="text"
+      name="firstname"
+      id="firstname"
+      value={logInData.firstname}
+      onChange={handleLogInChanges}
+     />
+    </div>
+    <div>
+     <label htmlFor="lastname">Last Name</label>
+     <input
+      type="text"
+      name="lastname"
+      id="lastname"
+      value={logInData.lastname}
+      onChange={handleLogInChanges}
+     />
+    </div>
+    <div>
+     <label htmlFor="password">Password</label>
+     <input
+      type="password"
+      name="password"
+      id="password"
+      value={logInData.password}
+      onChange={handleLogInChanges}
+     />
+    </div>
+    <Button text='Log In' />
+   </form>
+   <img className="logInImg" src={bottom} alt="watercolor leaves border" />
+  </section>
  )
 }

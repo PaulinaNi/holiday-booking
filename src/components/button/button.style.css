@@ -1,0 +1,17 @@
+.buttonContainer {
+ cursor: pointer;
+ background-color: var(--colour-accent);
+ color: var(--colour-main-light);
+ border: 0.2em solid #5f4528;
+ border-radius: 1em;
+ padding: 1em 5em;
+ box-shadow: 0px 5px 10px #5f4528;
+ margin: 1rem 0;
+ transition: all 300ms ease-out;
+}
+
+.buttonContainer:hover {
+ box-shadow: 2px 10px 10px #5f4528;
+ text-shadow: 1px 1px 10px #ffffff;
+ transform: translateY(-5px);
+}

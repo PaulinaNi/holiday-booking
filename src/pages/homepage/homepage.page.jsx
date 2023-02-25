@@ -1,8 +1,10 @@
+import "./homepage.page.style.css"
 import { useState, useEffect } from "react"
 
 //components imports
 import LogIn from "../../components/logIn/logIn.component"
-import HRPanel from "../hrPanel/hrPanel"
+import Profile from "../profile/profile.page"
+import Instruction from "../../components/instruction/instruction.component"
 
 //firebase imports
 import { collection, getDocs } from "firebase/firestore"
@@ -43,21 +45,15 @@ export default function Homepage() {
   }
 
   return (
-    <main>
-      <h1>Holiday Booking App in Your Workspace</h1>
-      <p>You can log into 3 accounts to check how this app is working</p>
-      <ul>
-        <li>HR Account where you can add new Employees,update Employees data and check all holiday request.</li>
-        <li>Manager account where you can accept holiday reqests and check when your team have a holiday</li>
-        <li>Worker account where you can check when worker have booked holidays, send reqest and check if they have been accepted</li>
-      </ul>
+    <main className="homepageContiner">
+      {/* When user is not logged in */}
+      {!currentUser && <Instruction />}
       {!currentUser && <LogIn
         handleLogInSubmit={handleLogInSubmit}
         employees={employees}
       />}
-
-      {currentUser && <h2>Welcome {currentUser[0].firstname}</h2>}
-      {currentUser && currentUser[0].isHR && <HRPanel />}
+      {/* When user is logged in */}
+      {currentUser && <Profile employee={currentUser[0]} />}
     </main>
   )
 }

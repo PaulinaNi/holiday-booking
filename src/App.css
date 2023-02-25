@@ -1,7 +1,7 @@
 :root {
- --colour-main: #009879;
- --colour-main-dark: #005E4C;
- --colour-accent: #FFC35C;
+ --colour-main-light: #e5cca5;
+ --colour-main-dark: #9b7e5d;
+ --colour-accent: #55553c;
  --colour-black: #000000;
  --colour-white: #ffffff;
 }
@@ -12,5 +12,12 @@
 
 body {
  margin: 0;
- font-family: 'Sofia Sans', sans-serif;
+ font-family: 'Oswald', sans-serif;
+ background-color: var(--colour-main-light);
+ color: var(--colour-accent);
+}
+
+.app {
+ height: 100vh;
+ width: 100vw;
 }
