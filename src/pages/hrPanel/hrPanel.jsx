@@ -6,7 +6,6 @@ import CreateNewEmployee from "../../components/createNewEmployee/createNewEmplo
 import ListOfEmployees from "../../components/listOfEmployees/listOfEmployees.component"
 
 
-
 export default function HRPanel() {
 
  //state for controling which component should be loaded

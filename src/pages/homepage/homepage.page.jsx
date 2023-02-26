@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 
 //components imports
 import LogIn from "../../components/logIn/logIn.component"
-import Profile from "../profile/profile.page"
+import Profile from "../../components/profile/profile.component"
 import Instruction from "../../components/instruction/instruction.component"
 
 //firebase imports

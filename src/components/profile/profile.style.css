@@ -1,0 +1,17 @@
+.profileNavigationButtons button {
+ display: block;
+ margin: 0.5rem auto;
+}
+
+@media (min-width: 450px) {
+ .profileNavigationButtons button {
+  margin: 0;
+ }
+
+ .profileNavigationButtons {
+  padding: 1rem 0;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+ }
+}

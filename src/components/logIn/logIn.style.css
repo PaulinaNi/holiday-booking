@@ -15,10 +15,40 @@
  align-items: center;
 }
 
+.logInForm label {
+ display: block;
+ text-align: center;
+}
+
+.logInForm input {
+ background-color: var(--colour-main-light);
+ border: none;
+ border-bottom: 1px solid var(--colour-main-dark);
+ padding: 0.5rem 1rem;
+}
+
+.logInForm input:focus {
+ outline: none;
+}
+
+
+.logInForm input:-webkit-autofill,
+.logInForm input:-webkit-autofill:hover,
+.logInForm input:-webkit-autofill:focus,
+.logInForm input:-webkit-autofill:active {
+ -webkit-box-shadow: 0 0 0 30px var(--colour-main-light) inset !important;
+}
+
 @media (min-width:600px) {
  .logInContainer {
   margin: 1rem 10%;
   width: 80%;
+ }
+
+ .logInForm label {
+  display: inline-block;
+  padding-right: 1rem;
+  text-align: right;
  }
 }
 
