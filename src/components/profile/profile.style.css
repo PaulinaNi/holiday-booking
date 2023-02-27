@@ -1,6 +1,5 @@
-.profileNavigationButtons button {
+.profileNavigationButtons a {
  display: block;
- margin: 0.5rem auto;
 }
 
 @media (min-width: 450px) {

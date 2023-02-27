@@ -1,5 +1,6 @@
 import "./homepage.page.style.css"
 import { useState, useEffect } from "react"
+import { useLocation } from "react-router-dom"
 
 //components imports
 import LogIn from "../../components/logIn/logIn.component"
@@ -29,6 +30,15 @@ export default function Homepage() {
   //Store current user
   const [currentUser, setCurrentUser] = useState()
 
+  //use it to load currentUser back when back from HR Panel, Manager Panel and Calendar
+  let { state } = useLocation();
+  useEffect(() => {
+    if (state) {
+      setCurrentUser([state])
+    }
+  }, [])
+
+
   //Form handling
   const handleLogInSubmit = async (logInData) => {
     const user = employees.filter(employee => {
@@ -46,6 +56,7 @@ export default function Homepage() {
 
   return (
     <main className="homepageContiner">
+      {/* refine that */}
       {/* When user is not logged in */}
       {!currentUser && <Instruction />}
       {!currentUser && <LogIn

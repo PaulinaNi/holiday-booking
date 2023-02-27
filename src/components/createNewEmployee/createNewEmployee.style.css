@@ -8,7 +8,7 @@
 
 .createNewEmployeeContainer label {
  display: block;
- color: var(--colour-main-dark);
+ color: #5f4528;
  font-weight: 800;
 }
 

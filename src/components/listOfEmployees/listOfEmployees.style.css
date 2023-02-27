@@ -1,33 +1,27 @@
 .listOfEmployeesComponent {
- text-align: center;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ min-width: 60%;
 }
 
 .listOfEmployeesComponent ol {
- padding: 0 2rem;
+ min-width: 60%;
 }
 
-.listOfEmployeesComponent li {
- padding: 0.3rem;
-}
-
-.listOfEmployeesComponent-functions {
+.listOfEmployeesComponent p.buttonContainer.link {
  display: block;
- margin-bottom: 1rem;
- padding: 0.5rem 1rem;
- cursor: pointer;
- border-radius: 0.5rem;
- background-color: var(--colour-main-dark);
- color: var(--colour-white);
 }
 
-.listOfEmployeesComponent-functions:hover {
- color: var(--colour-accent)
-}
-
-@media (min-width:600px) {
- .listOfEmployeesComponent-functions {
+@media (min-width: 350px) {
+ .listOfEmployeesComponent p.buttonContainer.link {
   display: inline-block;
-  margin-left: 1rem;
-  margin-bottom: 0;
+ }
+ .listOfEmployeesComponent-functions{
+  display: flex;
+  justify-content: space-between;
+ }
+ .listOfEmployeesComponent-functions > p {
+  min-width: 30%;
  }
 }

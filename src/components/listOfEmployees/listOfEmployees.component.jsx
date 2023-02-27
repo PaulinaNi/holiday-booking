@@ -1,12 +1,14 @@
 import "./listOfEmployees.style.css"
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 //firebase imports
-import { db } from "../../firebase.config";
-import { doc, deleteDoc, updateDoc, getDocs, collection } from "firebase/firestore";
+import { db } from "../../firebase.config"
+import { doc, deleteDoc, updateDoc, getDocs, collection } from "firebase/firestore"
 //component imports
-import Search from "../search/search.component";
+import Search from "../search/search.component"
 
 export default function ListOfEmployees(props) {
+
   const [dbChange, setDbChange] = useState('')
 
   const handleDeleteButton = async (id) => {
@@ -19,7 +21,7 @@ export default function ListOfEmployees(props) {
     // const employeeDoc = doc(db, "employees", id)
     // const updatedField = { isHR: true } updateDoc(employeeDoc, updatedField)
     await updateDoc(doc(db, "employees", id), { isHR: false })
-    props.handleReRender(id)
+    setDbChange(id)
   }
 
   const [employees, setEmployees] = useState()
@@ -48,7 +50,7 @@ export default function ListOfEmployees(props) {
 
   return (
     <section className="listOfEmployeesComponent">
-      <h1>Employees</h1>
+      <h1>All Employees</h1>
       <Search
         handleSearchInput={handleSearchInput}
         placeholderText='Search Employee'
@@ -57,10 +59,16 @@ export default function ListOfEmployees(props) {
         {filteredEmployees && filteredEmployees.map(employee => {
           return (
             <li key={employee.id}>
-              <span className="listOfEmployeesComponent-name">{employee.firstname} {employee.lastname} </span>
+              <p className="bolded">{employee.firstname} {employee.lastname} </p>
               {/* Make a component for Update Delete and Profile */}
-              <span className="listOfEmployeesComponent-functions" onClick={() => handleUpdate(employee.id)}>Update</span>
-              <span className="listOfEmployeesComponent-functions" onClick={() => handleDeleteButton(employee.id)}>Delete</span>
+              <div className="listOfEmployeesComponent-functions">
+                <Link
+                  className="buttonContainer link"
+                  onClick={() => handleUpdate(employee.id)}
+                  to={`/update/${employee.id}`}
+                >Update</Link>
+                <p className="buttonContainer link" onClick={() => console.log('checked')}>Check</p>
+                <p className="buttonContainer link" onClick={() => handleDeleteButton(employee.id)}>Delete</p></div>
             </li>)
         })}
       </ol>

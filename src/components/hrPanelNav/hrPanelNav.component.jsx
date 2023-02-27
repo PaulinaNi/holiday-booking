@@ -5,11 +5,10 @@ export default function HRPanelNav(props) {
  return (
   <nav className='hrPanelNavContainer'>
    <span>HR Panel</span>
-   <ul>
-    {/* when styled add cursor pointer */}
-    <li onClick={() => panelOption('create', 1)}>Add New Employee</li>
-    <li onClick={() => panelOption('list', 2)}>List of Employees</li>
-   </ul>
+   <section>
+    <p className="buttonContainer link" onClick={() => panelOption('create', 1)}>Add New Employee</p>
+    <p className="buttonContainer link" onClick={() => panelOption('list', 2)}>List of Employees</p>
+   </section>
   </nav>
  )
 }
