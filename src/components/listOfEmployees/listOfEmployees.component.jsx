@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 //firebase imports
 import { db } from "../../firebase.config"
-import { doc, deleteDoc, updateDoc, getDocs, collection } from "firebase/firestore"
+import { doc, deleteDoc, getDocs, collection } from "firebase/firestore"
 //component imports
 import Search from "../search/search.component"
 
@@ -14,13 +14,6 @@ export default function ListOfEmployees(props) {
   const handleDeleteButton = async (id) => {
     const employeeDocRef = doc(db, "employees", id)
     await deleteDoc(employeeDocRef)
-    setDbChange(id)
-  }
-
-  const handleUpdate = async (id) => {
-    // const employeeDoc = doc(db, "employees", id)
-    // const updatedField = { isHR: true } updateDoc(employeeDoc, updatedField)
-    await updateDoc(doc(db, "employees", id), { isHR: false })
     setDbChange(id)
   }
 
@@ -64,14 +57,14 @@ export default function ListOfEmployees(props) {
               <div className="listOfEmployeesComponent-functions">
                 <Link
                   className="buttonContainer link"
-                  onClick={() => handleUpdate(employee.id)}
-                  to={`/update/${employee.id}`}
-                >Update</Link>
-                <p className="buttonContainer link" onClick={() => console.log('checked')}>Check</p>
+                  to={`/profile/${employee.id}`}
+                  state={{ ...employee }}
+                >Profile</Link>
+                {/* <p className="buttonContainer link" onClick={() => console.log('checked')}>Check</p> */}
                 <p className="buttonContainer link" onClick={() => handleDeleteButton(employee.id)}>Delete</p></div>
             </li>)
         })}
       </ol>
-    </section>
+    </section >
   )
 }
