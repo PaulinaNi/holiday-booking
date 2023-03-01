@@ -9,19 +9,12 @@
  min-width: 60%;
 }
 
-.listOfEmployeesComponent p.buttonContainer.link {
- display: block;
-}
-
 @media (min-width: 350px) {
  .listOfEmployeesComponent p.buttonContainer.link {
   display: inline-block;
  }
- .listOfEmployeesComponent-functions{
-  display: flex;
-  justify-content: space-between;
- }
- .listOfEmployeesComponent-functions > p {
+
+ .listOfEmployeesComponent-functions>p {
   min-width: 30%;
  }
 }

@@ -8,7 +8,7 @@ import { doc, deleteDoc, getDocs, collection } from "firebase/firestore"
 import Search from "../search/search.component"
 
 export default function ListOfEmployees(props) {
-
+  // state to record change in db when employee is deleted
   const [dbChange, setDbChange] = useState('')
 
   const handleDeleteButton = async (id) => {
@@ -53,15 +53,12 @@ export default function ListOfEmployees(props) {
           return (
             <li key={employee.id}>
               <p className="bolded">{employee.firstname} {employee.lastname} </p>
-              {/* Make a component for Update Delete and Profile */}
-              <div className="listOfEmployeesComponent-functions">
-                <Link
-                  className="buttonContainer link"
-                  to={`/profile/${employee.id}`}
-                  state={{ ...employee }}
-                >Profile</Link>
-                {/* <p className="buttonContainer link" onClick={() => console.log('checked')}>Check</p> */}
-                <p className="buttonContainer link" onClick={() => handleDeleteButton(employee.id)}>Delete</p></div>
+              <Link
+                className="buttonContainer link"
+                to={`/profile/${employee.id}`}
+                state={{ ...employee }}
+              >Profile</Link>
+              <p className="buttonContainer link" onClick={() => handleDeleteButton(employee.id)}>Delete</p>
             </li>)
         })}
       </ol>

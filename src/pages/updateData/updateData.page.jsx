@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react"
-
+import { useParams } from "react-router-dom"
 //db imports
 import { db } from "../../firebase.config"
 import { doc, getDoc } from "firebase/firestore"
-import { useParams } from "react-router-dom"
+
 
 //component imports
-import ProfileCard from "../../components/profileCard/profileCard.component"
+
 
 export default function UpdateData() {
- const [employee, setEmployee] = useState()
+
+ //make sure only HR can access that route
+
+ const [employeeSnapshot, setEmployeeSnapshot] = useState()
  const employeeId = useParams()
  // const employeeDoc = doc(db, "employees", id)
  // const updatedField = { isHR: true } updateDoc(employeeDoc, updatedField)
@@ -20,14 +23,60 @@ export default function UpdateData() {
    const docRef = doc(db, "employees", employeeId.id)
    const data = await getDoc(docRef)
    const employeeData = { ...data.data(), id: data.id }
-   setEmployee(employeeData)
+   setEmployeeSnapshot(employeeData)
   }
   getEmployees()
- }, [])
+ }, [employeeId.id])
+
+ const updateEmployeeData = (event) => {
+  const value = event.target.value
+  const name = event.target.name
+  setEmployeeSnapshot(prevState => {
+   return {
+    ...prevState,
+    [name]: value
+   }
+  })
+  console.log(employeeSnapshot)
+ }
 
  return (
   <section>
-   {employee && <ProfileCard employee={employee} />}
+   hi {employeeSnapshot && employeeSnapshot.firstname}
+
+   <form>
+    <div>
+     <label htmlFor="update-firstname">First name</label>
+     <input
+      id="update-firstname"
+      type="text"
+      name='firstname'
+      value={employeeSnapshot.firstname}
+      onChange={updateEmployeeData}
+     />
+    </div>
+    <div>
+     <label htmlFor="update-lastname">Last name</label>
+     <input
+      id="update-lastname"
+      type="text"
+      name='lastname'
+      value={employeeSnapshot.lastname}
+      onChange={updateEmployeeData}
+     />
+    </div>
+    <div>
+     <label htmlFor="update-lastname">Last name</label>
+     <input
+      id="update-lastname"
+      type="text"
+      name='lastname'
+      value={employeeSnapshot.lastname}
+      onChange={updateEmployeeData}
+     />
+    </div>
+
+   </form>
   </section>
  )
 }

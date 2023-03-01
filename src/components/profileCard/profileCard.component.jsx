@@ -1,7 +1,8 @@
 import "./profileCard.style.css"
 import userAvatar from "../../images/userAvatar.svg"
 
-//components
+//react imports
+import { Link } from "react-router-dom"
 
 export default function ProfileCard(props) {
  //there are 2 variants of that component - for employees to view their profile (isForEmployeeUse=true) and for HR to see employee profile and be able to update employee data (not passing isForEmployeeUse as props or set to false)
@@ -17,6 +18,7 @@ export default function ProfileCard(props) {
    return 'none'
   }
  }
+
  return (
   <section className="userCard">
    <img className="userAvatar" src={userAvatar} alt="unisex user avatar" />
@@ -26,7 +28,11 @@ export default function ProfileCard(props) {
     <p>Holiday taken: {chooseVersion(employee.taken)}</p>
     <p>Holiday remaining: {chooseVersion(employee.remaining)}</p>
     {/* only show for HR */}
-    {!isForEmployeeUse && <p className="userCardButtons buttonContainer">Update</p>}
+    {!isForEmployeeUse &&
+     <Link
+      className="buttonContainer link"
+      to={`/update/${employee.id}`}
+     >Update</Link>}
    </div>
    {/* only show for employee */}
    {isForEmployeeUse && <p className="userCardButtons buttonContainer">Request holiday</p>}
