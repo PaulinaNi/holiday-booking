@@ -2,11 +2,11 @@ import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 //db imports
 import { db } from "../../firebase.config"
-import { doc, getDoc } from "firebase/firestore"
+import { doc, getDoc, updateDoc } from "firebase/firestore"
 
 
 //component imports
-
+import Button from "../../components/button/button.component"
 
 export default function UpdateData() {
 
@@ -14,9 +14,9 @@ export default function UpdateData() {
 
  const [employeeSnapshot, setEmployeeSnapshot] = useState()
  const employeeId = useParams()
- // const employeeDoc = doc(db, "employees", id)
- // const updatedField = { isHR: true } updateDoc(employeeDoc, updatedField)
- // await updateDoc(doc(db, "employees", id), { isHR: false })
+
+
+
  useEffect(() => {
   //pull results only for specific employee
   const getEmployees = async () => {
@@ -28,8 +28,8 @@ export default function UpdateData() {
   getEmployees()
  }, [employeeId.id])
 
- const updateEmployeeData = (event) => {
-  const value = event.target.value
+ const updateEmployeeTextData = (event) => {
+  const value = `${event.target.value.charAt(0).toUpperCase()}${event.target.value.slice(1)}`
   const name = event.target.name
   setEmployeeSnapshot(prevState => {
    return {
@@ -37,46 +37,109 @@ export default function UpdateData() {
     [name]: value
    }
   })
-  console.log(employeeSnapshot)
+ }
+
+ const updateEmployeeEntitlement = event => {
+  setEmployeeSnapshot(prevState => {
+   const name = event.target.name
+   //convert from string to number 
+   const value = event.target.valueAsNumber
+   // const ramainingHoliday = value - prevState.taken
+   return {
+    ...prevState,
+    [name]: value,
+    remaining: value - prevState.taken
+   }
+  })
+ }
+
+ const updateEmployeeCheckbox = event => {
+  setEmployeeSnapshot(prevState => {
+   return ({
+    ...prevState,
+    [event.target.name]: event.target.checked
+   })
+  })
+ }
+
+ const handleUpdate = async (event) => {
+  event.preventDefault()
+  const employeeDoc = doc(db, "employees", employeeId)
+  const updatedField = { isHR: true }
+  await updateDoc(employeeDoc, updatedField)
+  // await updateDoc(doc(db, "employees", id), { isHR: false })
+  // await updateDoc(employeeDoc, {
+  //  department: 'HRu'
+  // })
  }
 
  return (
   <section>
-   hi {employeeSnapshot && employeeSnapshot.firstname}
-
-   <form>
-    <div>
-     <label htmlFor="update-firstname">First name</label>
-     <input
-      id="update-firstname"
-      type="text"
-      name='firstname'
-      value={employeeSnapshot.firstname}
-      onChange={updateEmployeeData}
-     />
-    </div>
-    <div>
-     <label htmlFor="update-lastname">Last name</label>
-     <input
-      id="update-lastname"
-      type="text"
-      name='lastname'
-      value={employeeSnapshot.lastname}
-      onChange={updateEmployeeData}
-     />
-    </div>
-    <div>
-     <label htmlFor="update-lastname">Last name</label>
-     <input
-      id="update-lastname"
-      type="text"
-      name='lastname'
-      value={employeeSnapshot.lastname}
-      onChange={updateEmployeeData}
-     />
-    </div>
-
-   </form>
+   {employeeSnapshot &&
+    <form onSubmit={handleUpdate}>
+     <div>
+      <label htmlFor="update-firstname">First name</label>
+      <input
+       id="update-firstname"
+       type="text"
+       name='firstname'
+       value={employeeSnapshot.firstname}
+       onChange={updateEmployeeTextData}
+      />
+     </div>
+     <div>
+      <label htmlFor="update-lastname">Last name</label>
+      <input
+       id="update-lastname"
+       type="text"
+       name='lastname'
+       value={employeeSnapshot.lastname}
+       onChange={updateEmployeeTextData}
+      />
+     </div>
+     <div>
+      <label htmlFor="update-department">Department</label>
+      <input
+       id="update-department"
+       type="text"
+       name='department'
+       value={employeeSnapshot.department}
+       onChange={updateEmployeeTextData}
+      />
+     </div>
+     <div>
+      <label htmlFor="update-entitlement">Holiday Entitlement</label>
+      <input
+       id="update-entitlement"
+       type="number"
+       name='entitlement'
+       value={employeeSnapshot.entitlement}
+       onChange={updateEmployeeEntitlement}
+      />
+     </div>
+     <div>
+      <label htmlFor="update-isManager">Do you want to add Manager Panel for that profile ?</label>
+      <input
+       type="checkbox"
+       name="isManager"
+       id="update-isManager"
+       checked={employeeSnapshot.isManager}
+       onChange={updateEmployeeCheckbox}
+      />
+     </div>
+     <div>
+      <label htmlFor="update-isHR">Do you want to add HR Panel for that profile ?</label>
+      <input
+       type="checkbox"
+       name="isHR"
+       id="update-isHR"
+       checked={employeeSnapshot.isHR}
+       onChange={updateEmployeeCheckbox}
+      />
+     </div>
+     <Button text="Update" />
+    </form>
+   }
   </section>
  )
 }
