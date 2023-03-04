@@ -1,3 +1,5 @@
+import "./updateData.style.css"
+//react imports
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 //db imports
@@ -62,19 +64,15 @@ export default function UpdateData() {
   })
  }
 
- const handleUpdate = async (event) => {
+ const handleUpdate = (event) => {
   event.preventDefault()
-  const employeeDoc = doc(db, "employees", employeeId)
-  const updatedField = { isHR: true }
-  await updateDoc(employeeDoc, updatedField)
-  // await updateDoc(doc(db, "employees", id), { isHR: false })
-  // await updateDoc(employeeDoc, {
-  //  department: 'HRu'
-  // })
+  const employeeDoc = doc(db, "employees", employeeId.id)
+  const updatedField = { firstname: 'Mario' }
+  updateDoc(employeeDoc, { ...employeeSnapshot })
  }
 
  return (
-  <section>
+  <section className="updateDataContainer">
    {employeeSnapshot &&
     <form onSubmit={handleUpdate}>
      <div>
