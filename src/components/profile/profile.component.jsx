@@ -48,7 +48,7 @@ export default function Profile(props) {
     <ProfileCard employee={employee} isForEmployeeUse={true} />
    </div>
    }
-   {state && <ProfileCard employee={state} isForEmployeeUse={false} />}
+   {state && !employee && <ProfileCard employee={state} isForEmployeeUse={false} />}
   </section>
  )
 }

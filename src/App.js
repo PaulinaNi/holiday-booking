@@ -10,6 +10,7 @@ import ManagerPanel from './pages/managerPanel/managerPanel.page'
 import Error from './pages/error/error.page'
 import UpdateData from './pages/updateData/updateData.page'
 import Profile from './components/profile/profile.component'
+import RequestHoliday from './pages/requestHoliday/requestHoliday.page'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path='/error' element={<Error />} />
         <Route path='/profile/:id' element={<Profile />} />
         <Route path='/update/:id' element={<UpdateData />} />
+        <Route path='/request/:id' element={<RequestHoliday />} />
       </Routes>
     </div>
   )
