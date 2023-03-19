@@ -1,0 +1,19 @@
+.requestHolidayForm {
+ padding-top: 1rem;
+ display: flex;
+ flex-direction: column;
+ width: 100%;
+ align-items: center;
+}
+
+.requestHolidayForm>form {
+ display: flex;
+ flex-direction: column;
+}
+
+.requestHolidayForm-textarea {
+ padding-top: 1rem;
+ display: flex;
+ align-items: center;
+ flex-direction: column;
+}
