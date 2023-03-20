@@ -12,14 +12,28 @@ import MessageWindow from '../../components/messageWindow/messageWindow.componen
 import { db } from '../../firebase.config'
 import { collection, addDoc } from "firebase/firestore"
 
+//react-data-range imports
+import 'react-date-range/dist/styles.css'
+import 'react-date-range/dist/theme/default.css'
+import { DateRange } from 'react-date-range'
+
 export default function RequestHoliday() {
+ //react-data-range set up
+ const selectedDateSnap = {
+  startDate: new Date(),
+  endDate: new Date(),
+  key: 'selection'
+ }
+ const [selectedDate, setSelectedDate] = useState([selectedDateSnap])
+
+ //passing employee data from profileCard component so app will know which employee is reqesting holiday 
  let { state } = useLocation();
 
  const holidayFormSnap = {
   employeeId: state.id,
-  startDate: '',
-  endDate: '',
   comment: '',
+  accepted: false,
+  rejected: false,
  }
  const [holidayForm, setHolidayForm] = useState(holidayFormSnap)
 
@@ -28,6 +42,7 @@ export default function RequestHoliday() {
  const handleMessageWindowComponent = () => {
   setIsHolidayFormSent(false)
   setHolidayForm(holidayFormSnap)
+  setSelectedDate([selectedDateSnap])
  }
 
  const handleInput = event => {
@@ -45,7 +60,7 @@ export default function RequestHoliday() {
   event.preventDefault();
   const saveHolidayRequest = async () => {
    const collectionRef = collection(db, "holidayRequests")
-   await addDoc(collectionRef, { ...holidayForm })
+   await addDoc(collectionRef, { ...holidayForm, ...selectedDate[0] })
   }
   saveHolidayRequest()
   setIsHolidayFormSent(true)
@@ -58,28 +73,14 @@ export default function RequestHoliday() {
 
    <h1>Holiday Request Form</h1>
    <form onSubmit={handleSubmit}>
-    <div>
-     <label htmlFor="startDate">From:</label>
-     <input
-      type="date"
-      name="startDate"
-      id="startDate"
-      value={holidayForm.startDate}
-      onChange={handleInput}
-      required
-     />
-    </div>
-    <div>
-     <label htmlFor="endDate">To:</label>
-     <input
-      type="date"
-      name="endDate"
-      id="endDate"
-      value={holidayForm.endDate}
-      onChange={handleInput}
-      required
-     />
-    </div>
+    {!isHolidayFormSent && <DateRange
+     editableDateInputs={true}
+     onChange={item => setSelectedDate([item.selection])}
+     moveRangeOnFirstSelection={false}
+     ranges={selectedDate}
+     weekStartsOn={1}
+     rangeColors={["#e5cca5", "#55553c", "#9b7e5d"]}
+    />}
     <div className='requestHolidayForm-textarea'>
      <label htmlFor="comment">Comment:</label>
      <textarea
