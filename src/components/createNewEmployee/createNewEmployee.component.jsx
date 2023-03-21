@@ -1,6 +1,7 @@
 import "./createNewEmployee.style.css"
 
 import { useState } from "react"
+//db imports
 import { collection, addDoc } from "firebase/firestore";
 import { db } from '../../firebase.config'
 
