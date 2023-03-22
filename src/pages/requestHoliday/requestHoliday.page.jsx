@@ -2,7 +2,7 @@ import './requestHoliday.style.css'
 
 //react and react router imports
 import { useState } from "react"
-import { useLocation } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 
 //components imports
 import Button from "../../components/button/button.component"
@@ -32,8 +32,9 @@ export default function RequestHoliday() {
  const holidayFormSnap = {
   employeeId: state.id,
   comment: '',
-  accepted: false,
-  rejected: false,
+  isAccepted: false,
+  isRejected: false,
+  isProcessed: false,
  }
  const [holidayForm, setHolidayForm] = useState(holidayFormSnap)
 
@@ -68,6 +69,9 @@ export default function RequestHoliday() {
 
  return (
   <section className='requestHolidayForm'>
+   {/* link back to homepage */}
+   <Link className="buttonContainer link" to="/" state={{ ...state }}>Homepage</Link>
+
    {/* message show when request is send */}
    {isHolidayFormSent && <MessageWindow message='Holiday Request Sent' buttonFunction={handleMessageWindowComponent} />}
 
