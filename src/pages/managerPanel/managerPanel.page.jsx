@@ -1,3 +1,4 @@
+import "./managerPanel.style.css"
 //react imports
 import { Link, useLocation } from "react-router-dom"
 import { useState, useEffect } from "react";
@@ -14,6 +15,8 @@ export default function ManagerPanel() {
 
   const [allHolidayRequests, setAllHolidayRequests] = useState()
   const [employees, setEmployees] = useState()
+  //state to help reload filtered list when one of request is processed , this state is passed to each ReqestCard - fliping true/false
+  const [requestProcessStageChanged, setRequestProcessStageChanged] = useState(false)
 
   useEffect(() => {
     const getAllHolidayRequests = async () => {
@@ -38,10 +41,15 @@ export default function ManagerPanel() {
     // only load manager panel if logged user have permissions otherwise load no permission a
     state ? state.isHR &&
       //menagers loading component
-      <section>
+      <section className="managerPanelContainer">
         <Link className="buttonContainer link" to="/" state={{ ...state }}>Homepage</Link>
         <h1>Manager Panel</h1>
-        {allHolidayRequests && <HolidayRequestsList user={state} holidayRequests={allHolidayRequests} employees={employees} />}
+        {allHolidayRequests &&
+          <HolidayRequestsList user={state}
+            holidayRequests={allHolidayRequests}
+            employees={employees}
+            setRequestProcessStageChanged={setRequestProcessStageChanged}
+          />}
       </section>
       //error page for not logged users or users without permission
       : <Error />

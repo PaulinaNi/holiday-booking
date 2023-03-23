@@ -1,0 +1,12 @@
+.managerPanelContainer {
+ padding: 1rem;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+}
+
+.managerPanelContainer >h1 {
+ font-size: 2.5rem;
+ color: var(--colour-black);
+ text-align: center;
+}
