@@ -7,7 +7,7 @@ import { doc, deleteDoc, getDocs, collection } from "firebase/firestore"
 //component imports
 import Search from "../search/search.component"
 
-export default function ListOfEmployees(props) {
+export default function ListOfEmployees() {
   // state to record change in db when employee is deleted
   const [dbChange, setDbChange] = useState('')
 

@@ -35,7 +35,7 @@ export default function ManagerPanel() {
     }
     getAllHolidayRequests()
     loadEmployees()
-  }, [])
+  }, [requestProcessStageChanged])
 
   return (
     // only load manager panel if logged user have permissions otherwise load no permission a
