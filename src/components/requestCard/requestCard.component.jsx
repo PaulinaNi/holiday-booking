@@ -9,12 +9,13 @@ import { doc, updateDoc, arrayUnion } from "firebase/firestore"
 export default function ReqestCard(props) {
  const { request, employee, rerenderMangerPanel } = props
 
+ //function which process reqest depending on the decision made
  const requestProcess = (decision) => {
   const reqestRef = doc(db, "holidayRequests", request.id)
   const employeeRef = doc(db, "employees", employee.id)
 
-  // need to add state and lift up to reload data after processing one reqest so only not processed reqest will shown 
   //need to add deduction for days
+  //processing accepted reqest
   const accepted = async () => {
    await updateDoc(reqestRef, {
     isAccepted: true,
@@ -24,6 +25,7 @@ export default function ReqestCard(props) {
     bookedDays: arrayUnion(request.id)
    })
   }
+  // processing rejected reqest
   const rejected = async () => {
    await updateDoc(reqestRef, {
     isRejected: true,

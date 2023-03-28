@@ -11,6 +11,7 @@ import Error from './pages/error/error.page'
 import UpdateData from './pages/updateData/updateData.page'
 import Profile from './components/profile/profile.component'
 import RequestHoliday from './pages/requestHoliday/requestHoliday.page'
+import Calendar from './components/calendar/calendar.component'
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
         <Route path='/' element={<Homepage />} />
         <Route path='/hr' element={<HRPanel />} />
         <Route path='/manager' element={<ManagerPanel />} />
-        <Route path='/calendar' element={<h2>calendar</h2>} />
+        <Route path='/calendar' element={<Calendar />} />
         <Route path='/error' element={<Error />} />
         <Route path='/profile/:id' element={<Profile />} />
         <Route path='/update/:id' element={<UpdateData />} />

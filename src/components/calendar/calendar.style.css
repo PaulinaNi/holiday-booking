@@ -1,0 +1,47 @@
+.calendarContainer {
+ font-size: 0.8rem;
+}
+
+.calendar {
+ display: grid;
+ grid-template-columns: repeat(7, 1fr);
+ max-width: 90%;
+ margin: 0 auto;
+ background-color: lightgray;
+}
+
+.calendarItem,
+.monthNameContainer {
+ padding: 0.25rem 0;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+.monthNameContainer {
+ grid-area: 1 / 2 / 2 / 7;
+}
+
+.calendarButton {
+ padding: 1rem;
+ cursor: pointer;
+ background-color: transparent;
+ border: none;
+}
+
+.eventDay {
+ background-color: aquamarine;
+}
+
+@media (min-width: 600px) {
+ .calendar {
+  min-width: 70vw;
+  font-size: 1rem;
+ }
+}
+
+@media (min-width: 1200px) {
+ .calendar {
+  max-width: 70%;
+ }
+}

@@ -43,7 +43,11 @@ export default function Profile(props) {
     <div className='profileNavigationButtons'>
      {employee.isHR && HRPanelButton()}
      {employee.isManager && ManagerPanelButton()}
-     <Link className='buttonContainer link' to="/calendar">Calendar</Link>
+     <Link
+      className='buttonContainer link'
+      to="/calendar"
+      state={{ ...employee }}
+     >Calendar</Link>
     </div>
     <ProfileCard employee={employee} isForEmployeeUse={true} />
    </div>

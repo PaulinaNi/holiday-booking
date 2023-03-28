@@ -17,12 +17,15 @@ import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
 import { DateRange } from 'react-date-range'
 
+//date-fns imports
+import { eachDayOfInterval } from 'date-fns'
+
 export default function RequestHoliday() {
  //react-data-range set up
  const selectedDateSnap = {
   startDate: new Date(),
   endDate: new Date(),
-  key: 'selection'
+  key: 'selection',
  }
  const [selectedDate, setSelectedDate] = useState([selectedDateSnap])
 
@@ -35,6 +38,8 @@ export default function RequestHoliday() {
   isAccepted: false,
   isRejected: false,
   isProcessed: false,
+  holidayInterval: null,
+  workingDaysInHolidayInterval: 0,
  }
  const [holidayForm, setHolidayForm] = useState(holidayFormSnap)
 
@@ -53,6 +58,25 @@ export default function RequestHoliday() {
    return {
     ...prevState,
     [name]: value
+   }
+  })
+ }
+ const handleDataRangeChange = item => {
+  //setting start and end of holiday
+  setSelectedDate([item.selection])
+
+  //calculating holidayInterval and how many working days in interval
+  //holidayInterval sorted
+  //how many working days in interval - need to add working days when creating new employee
+  const holidayIntervalArray = eachDayOfInterval({
+   start: selectedDate[0].startDate,
+   end: selectedDate[0].endDate
+  })
+
+  setHolidayForm(prevState => {
+   return {
+    ...prevState,
+    holidayInterval: holidayIntervalArray,
    }
   })
  }
@@ -79,7 +103,7 @@ export default function RequestHoliday() {
    <form onSubmit={handleSubmit}>
     {!isHolidayFormSent && <DateRange
      editableDateInputs={true}
-     onChange={item => setSelectedDate([item.selection])}
+     onChange={item => handleDataRangeChange(item)}
      moveRangeOnFirstSelection={false}
      ranges={selectedDate}
      weekStartsOn={1}

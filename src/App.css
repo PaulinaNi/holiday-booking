@@ -17,6 +17,10 @@ body {
  color: var(--colour-accent);
 }
 
+h1{
+ text-align: center;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
