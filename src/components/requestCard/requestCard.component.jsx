@@ -6,25 +6,46 @@ import Button from "../button/button.component"
 import { db } from "../../firebase.config"
 import { doc, updateDoc, arrayUnion } from "firebase/firestore"
 
+//data-fns imports
+import { eachDayOfInterval } from 'date-fns'
+
 export default function ReqestCard(props) {
  const { request, employee, rerenderMangerPanel } = props
+
+ const holidayInterval = eachDayOfInterval({
+  start: request.startDate.toDate(),
+  end: request.endDate.toDate()
+ })
+
+ const numberOfWorkingDaysInHolidayInterval = holidayInterval.filter(day => !day.toDateString().includes('Sat') && !day.toDateString().includes('Sun')).length
 
  //function which process reqest depending on the decision made
  const requestProcess = (decision) => {
   const reqestRef = doc(db, "holidayRequests", request.id)
   const employeeRef = doc(db, "employees", employee.id)
-
   //need to add deduction for days
   //processing accepted reqest
   const accepted = async () => {
    await updateDoc(reqestRef, {
     isAccepted: true,
     isProcessed: true,
+    workingDaysInHolidayInterval: numberOfWorkingDaysInHolidayInterval
    })
+   //adding each day of holiday to holidayInterval
+   holidayInterval.forEach(async (day) => {
+    await updateDoc(reqestRef, {
+     holidayInterval: arrayUnion(day)
+    })
+   })
+
    await updateDoc(employeeRef, {
+    //need to reload eployee list to get correct days to deduct from
+    remaining: employee.remaining - numberOfWorkingDaysInHolidayInterval,
+    taken: employee.taken + numberOfWorkingDaysInHolidayInterval,
     bookedDays: arrayUnion(request.id)
    })
   }
+
   // processing rejected reqest
   const rejected = async () => {
    await updateDoc(reqestRef, {
