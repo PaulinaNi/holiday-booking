@@ -37,7 +37,7 @@ export default function ReqestCard(props) {
      holidayInterval: arrayUnion(day)
     })
    })
-
+   console.log(employee)
    await updateDoc(employeeRef, {
     //need to reload eployee list to get correct days to deduct from
     remaining: employee.remaining - numberOfWorkingDaysInHolidayInterval,
@@ -59,7 +59,7 @@ export default function ReqestCard(props) {
   //rerenderMangerPanel - lift state up to ManagerPanel from RequestCard
   rerenderMangerPanel()
  }
-
+ console.log(employee)
  return (
   <section className="requestCardContainer">
    <h1 className="requestCardContainer-header">{employee.firstname} {employee.lastname}'s Holiday Request</h1>
