@@ -1,0 +1,12 @@
+.instructionContainer {
+ text-align: center;
+}
+
+.instructionContainer h1 {
+ margin: 0 0 1rem 0;
+}
+
+.instructionContainer ul {
+ list-style: none;
+ padding: 0 0.5rem;
+}
