@@ -1,8 +1,9 @@
 import { initializeApp } from "firebase/app"
 import { getFirestore } from "firebase/firestore"
 
+
 const firebaseConfig = {
- apiKey: import.meta.VITE_FIREBASE_API_KEY,
+ apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
  authDomain: "holiday-booking-ef5ad.firebaseapp.com",
  projectId: "holiday-booking-ef5ad",
  storageBucket: "holiday-booking-ef5ad.appspot.com",
