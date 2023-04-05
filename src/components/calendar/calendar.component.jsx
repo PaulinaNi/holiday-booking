@@ -86,7 +86,6 @@ export default function Calendar(props) {
   //  const eventArray = events.map(event => event.holidayInterval.map(day => { return { day: day.getDate(), month: day.getMonth() } }))
   // }
   console.log(events.forEach(event => console.log(event.holidayInterval[0])))
-  console.log(daysInMonth)
   return (
    daysInMonth.map((day, index) => {
     if (eventArray.some(eventDay => eventDay.month === displayMonth && eventDay.day === day)) {
