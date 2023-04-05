@@ -7,8 +7,11 @@ import { Link, useLocation } from 'react-router-dom'
 import CalendarCell from './calendarComponents/calendarCell.component'
 
 //date-fns imports
-import { startOfMonth, getDaysInMonth, startOfTomorrow, eachDayOfInterval } from 'date-fns'
+import { startOfMonth, getDaysInMonth } from 'date-fns'
 
+//db imports
+import { db } from '../../firebase.config'
+import { collection, getDocs } from "firebase/firestore"
 
 export default function Calendar(props) {
  //state is an empolee data passed from profile component
@@ -25,7 +28,11 @@ export default function Calendar(props) {
  const [daysInMonth, setDaysInMonth] = useState()
  const [firstDayOfMonth, setFirstDayOfMonth] = useState()
 
+ //display Events
+ const [events, setEvents] = useState([])
+
  useEffect(() => {
+  //loading data for callendar render
   const numberOfDaysInMonth = getDaysInMonth(new Date(currentYear, displayMonth))
   const daysInMonthArray = []
   for (let i = 1; i <= numberOfDaysInMonth; i++) {
@@ -33,7 +40,20 @@ export default function Calendar(props) {
   }
   setDaysInMonth(daysInMonthArray)
   setFirstDayOfMonth(startOfMonth(new Date(currentYear, displayMonth)).getDay())
- }, [displayMonth])
+
+  //getting holidays for current user to displey as an events
+  const getEmployeeHolidays = async () => {
+   const collectionRef = collection(db, "holidayRequests")
+   const data = await getDocs(collectionRef);
+   const holidayList = data.docs.map(holiday => { return { ...holiday.data(), id: holiday.id } })
+   //first map used to filter each holiday, second used to cut double nesting in filteredHolidayList array
+   const filteredHolidayList = state.bookedDays.map(bookedHoliday => holidayList.filter(holiday => holiday.id === bookedHoliday)).map(array => array[0])
+   // console.log(filteredHolidayList)
+   setEvents(filteredHolidayList)
+  }
+  getEmployeeHolidays()
+
+ }, [displayMonth, currentYear, state])
 
  //create empty divs to display when is the 1st day of month
  const createFirstDayInMonth = () => {
@@ -58,25 +78,15 @@ export default function Calendar(props) {
   choice === 'next' && setDisplayMonth(prevState => prevState + 1)
  }
 
- //display Events
- const getTempEvent = () => {
-  const eventIntervalArray = eachDayOfInterval({
-   start: new Date(),
-   end: new Date('2023-04-06T03:24:00')
-  })
-  return {
-   startDate: new Date(),
-   endDate: startOfTomorrow(),
-   eventInterval: eventIntervalArray
-  }
- }
- const tempEvent = getTempEvent()
-
- const [events, setEvents] = useState([tempEvent])
-
  //pass different classNames to CallendarCell depends if that day is an event day 
  const loadMonthDay = () => {
-  const eventArray = events[0].eventInterval.map(day => { return { day: day.getDate(), month: day.getMonth() } })
+  // const eventArray = events[0] ? events[0].eventInterval.map(day => { return { day: day.getDate(), month: day.getMonth() } }) : []
+  const eventArray = []
+  // if (events.length > 0) {
+  //  const eventArray = events.map(event => event.holidayInterval.map(day => { return { day: day.getDate(), month: day.getMonth() } }))
+  // }
+  console.log(events.forEach(event => console.log(event.holidayInterval[0])))
+  console.log(daysInMonth)
   return (
    daysInMonth.map((day, index) => {
     if (eventArray.some(eventDay => eventDay.month === displayMonth && eventDay.day === day)) {
