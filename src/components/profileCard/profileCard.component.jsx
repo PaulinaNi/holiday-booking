@@ -40,8 +40,13 @@ export default function ProfileCard(props) {
           className="userCardButtons buttonContainer link"
           to={`/request/${employee.id}`}
           state={{ ...employee }}
-        >Request holiday</Link>}
-      {isForEmployeeUse && <p className="userCardButtons buttonContainer">Holiday requests history</p>}
+        >Request holiday</Link>
+      }
+      {isForEmployeeUse && <Link
+        className="userCardButtons buttonContainer link"
+        to={`requestshistory`}
+        state={{ ...employee }}
+      >Holiday requests history</Link>}
     </section>
   )
 }

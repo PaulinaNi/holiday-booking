@@ -12,6 +12,7 @@ import UpdateData from './pages/updateData/updateData.page'
 import Profile from './components/profile/profile.component'
 import RequestHoliday from './pages/requestHoliday/requestHoliday.page'
 import Calendar from './components/calendar/calendar.component'
+import RequestsHisatory from './components/requestsHistory/requestsHistory.component'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path='/profile/:id' element={<Profile />} />
         <Route path='/update/:id' element={<UpdateData />} />
         <Route path='/request/:id' element={<RequestHoliday />} />
+        <Route path='/requestshistory' element={<RequestsHisatory />} />
       </Routes>
     </div>
   )
