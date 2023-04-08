@@ -1,0 +1,20 @@
+.reqestsHistoryContainer{
+ max-width: 80%;
+ text-align: center;
+}
+
+.acceptedLabel,
+.rejectedLabel{
+ padding: 0.25rem 1rem;
+ border-radius: 1em;
+}
+
+.acceptedLabel{
+background-color: green;
+color:white;
+}
+
+.rejectedLabel{
+background-color: red;
+color: white;
+}
